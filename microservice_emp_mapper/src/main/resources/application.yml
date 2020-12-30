@@ -1,0 +1,52 @@
+mybatis-plus:
+  #  config-location: classpath:config/mybatis.cfg.xml
+  type-aliases-package: cn.kgc.entity
+  mapper-locations: classpath:mappers/*Mapper.xml
+  configuration:
+    # 下划线驼峰方案
+    map-underscore-to-camel-case: true
+    #    auto-mapping-behavior: full
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+  #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: true
+      table-prefix: t_
+      #逻辑删除配置
+      #      logic-delete-value: 0
+      #      logic-not-delete-value: 1
+      db-type: mysql
+    refresh: false
+
+
+  # 开启MVC隐藏域提交方式
+spring:
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: a123
+    url: jdbc:mysql://localhost:3306/glass?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+
+server:
+  port: 8802
+# dubbo的配置
+dubbo:
+  application:
+    name: microservice-emp-mapper
+  registry:
+    protocol: zookeeper
+    address: zookeeper://192.167.10.80:2181?backup=192.168.10.81:2181,192.168.10.82:2181
+  protocol:
+    name: dubbo
+    port: 20882
+  provider:
+    timeout: 8000
+  monitor:
+    protocol: register

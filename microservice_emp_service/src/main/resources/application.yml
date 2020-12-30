@@ -1,0 +1,16 @@
+server:
+  port: 8807
+# dubbo的配置
+dubbo:
+  application:
+    name: microservice-emp-service
+  registry:
+    protocol: zookeeper
+    address: zookeeper://192.167.10.80:2181?backup=192.168.10.81:2181,192.168.10.82:2181
+  protocol:
+    name: dubbo
+    port: 20887
+  provider:
+    timeout: 8000
+  monitor:
+    protocol: register

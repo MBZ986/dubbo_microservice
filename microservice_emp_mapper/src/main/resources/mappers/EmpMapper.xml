@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.kgc.mapper.EmpMapperStub">
+    <resultMap id="empMap" type="cn.kgc.entity.Emp">
+        <id column="eId" property="id"/>
+        <result property="name" column="emp_name"/>
+        <result property="password" column="emp_pwd"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+        <result property="phone" column="phone"/>
+        <result property="address" column="address"/>
+        <result property="email" column="email"/>
+        <association property="department" javaType="cn.kgc.entity.Department">
+            <id property="id" column="dId"/>
+            <result property="departmentName" column="dept_name"/>
+        </association>
+    </resultMap>
+
+    <select id="selectAllEmp" resultMap="empMap">
+        <include refid="selectEmp"/>
+    </select>
+
+    <select id="selectEmpById" resultMap="empMap">
+        <include refid="selectEmp"/> AND e.id=#{id}
+    </select>
+
+    <update id="updateEmpById">
+        UPDATE t_emp
+        <set>
+            <if test="name!=null and name!=''">
+                emp_name=#{name},
+            </if>
+            <if test="password!=null and password!=''">
+                emp_pwd=#{password},
+            </if>
+            <if test="sex!=null and sex!=''">
+                sex=#{sex},
+            </if>
+            <if test="age!=null and age!=''">
+                age=#{age},
+            </if>
+            <if test="phone!=null and phone!=''">
+                phone=#{phone},
+            </if>
+            <if test="address!=null and address!=''">
+                address=#{address},
+            </if>
+            <if test="email!=null and email!=''">
+                email=#{email},
+            </if>
+            <if test="department!=null and department.id!=null">
+                dept_id=#{department.id},
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <insert id="insertEmp">
+        INSERT INTO t_emp(emp_name,emp_pwd,sex,age,phone,address,email,dept_id)
+        VALUES(#{name},#{password},#{sex},#{age},#{phone},#{address},#{email},#{department.id})
+    </insert>
+
+    <sql id="selectEmp">
+        SELECT e.id eId,e.emp_name,e.emp_pwd,e.sex,e.age,e.phone,e.address,e.email,d.id dId,d.department_name dept_name FROM t_emp e,t_department d WHERE e.dept_id=d.id
+    </sql>
+</mapper>

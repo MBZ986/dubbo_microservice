@@ -1,0 +1,10 @@
+# Project exclude paths
+/microservice_api/target/
+/microservice_dept_controller/target/
+/microservice_dept_mapper/target/
+/microservice_dept_service/target/
+/microservice_dept_service_second/target/
+/microservice_emp_controller/target/
+/microservice_emp_mapper/target/
+/microservice_emp_service/target/
+/microservice_gateway/target/
